@@ -9,9 +9,9 @@ const Computers = ({isMobile}) => {
     <mesh>
       <hemisphereLight intensity={1} groundColor='black'/>
       <pointLight intensity={1} />
-      <ambientLight intensity={0.5} castShadow/>
+      <ambientLight intensity={0.5}/>
       <primitive object = {computer.scene}
-      scale = {isMobile ? 0.5 : 0.7} 
+      scale = {isMobile ? 0.35 : 0.7} 
       position = {isMobile ? [0, -3, -2.2]:[0, -3.25, -1.5]} 
       rotation={[-0.01, -0.1, -0.1]}/>
     </mesh>
