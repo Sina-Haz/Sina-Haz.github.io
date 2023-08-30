@@ -2,7 +2,6 @@
 import {
     mobile,
     backend,
-    creator,
     web,
     javascript,
     typescript,
@@ -22,8 +21,8 @@ import {
     shopify,
     carrent,
     jobit,
-    tripguide,
     threejs,
+    SET,
   } from "../assets";
   
   export const navLinks = [
@@ -43,20 +42,16 @@ import {
   
   const services = [
     {
-      title: "Web Developer",
+      title: "Fullstack Development",
       icon: web,
     },
     {
-      title: "React Native Developer",
+      title: "Systems Applications",
       icon: mobile,
     },
     {
-      title: "Backend Developer",
+      title: "AIML Engineering",
       icon: backend,
-    },
-    {
-      title: "Content Creator",
-      icon: creator,
     },
   ];
   
@@ -117,57 +112,42 @@ import {
   
   const experiences = [
     {
-      title: "React.js Developer",
-      company_name: "Starbucks",
-      icon: starbucks,
+      title: "Co-Founder and Vice President",
+      company_name: "Student Enrichment Tutoring",
+      icon: SET,
       iconBg: "#383E56",
-      date: "March 2020 - April 2021",
+      date: "Aug 2020 - May 2021",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Founded a non-profit organization providing computer science and math tutoring to 36 students during the pandemic", 
+        "Developed tailored curricula for 12 students, delivering 70+ hours of instruction to achieve up to 15% grade improvements"
       ],
     },
     {
-      title: "React Native Developer",
-      company_name: "Tesla",
+      title: "Data Science Intern",
+      company_name: "Navierre",
       icon: tesla,
       iconBg: "#E6DEDD",
-      date: "Jan 2021 - Feb 2022",
+      date: "Feb 2023 - Aug 2023",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Performed comprehensive testing of the Navierre android App, logging and addressing over 20 crashes and vulnerabilities",
+        "Collaborated in MLOps to preprocess and analyze datasets, contributing to a machine learning model that grades users’ health risk factors on a scale from 1 to 5",
+        "Developed proficiency in diagnosing and resolving technical issues",
       ],
     },
     {
-      title: "Web Developer",
-      company_name: "Shopify",
+      title: "Software Engineer Intern",
+      company_name: "General Autonomy",
       icon: shopify,
       iconBg: "#383E56",
-      date: "Jan 2022 - Jan 2023",
+      date: "Jul 2023 - Present",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Pioneered a modular backend employing abstraction, polymorphism, and AI to automate up to 70% of the risk analysis process for autonomous systems",
+        "Generalized codebase to work for multiple safety assessment methods including HARA, STPA, and TARA",
+        "Implemented a DAG infrastructure for traceable Session graphs, integrating JSON and XML serialization for data storage into NoSQL database",
+        "Established web APIs using Django and RestAPI, enabling seamless integration between backend and Node.js frontend hosted on AWS",
       ],
     },
-    {
-      title: "Full stack Developer",
-      company_name: "Meta",
-      icon: meta,
-      iconBg: "#E6DEDD",
-      date: "Jan 2023 - Present",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
+
   ];
   
   const testimonials = [
@@ -238,27 +218,6 @@ import {
         },
       ],
       image: jobit,
-      source_code_link: "https://github.com/",
-    },
-    {
-      name: "Trip Guide",
-      description:
-        "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
-      tags: [
-        {
-          name: "nextjs",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "supabase",
-          color: "green-text-gradient",
-        },
-        {
-          name: "css",
-          color: "pink-text-gradient",
-        },
-      ],
-      image: tripguide,
       source_code_link: "https://github.com/",
     },
   ];

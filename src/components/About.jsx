@@ -36,11 +36,11 @@ const About = () => {
         </p>
 
         <p className="mb-2">
-          I also write low-level applications with C/C++, and work on AI/ML projects with Python, Jupyter,
+          I also write low-level and systems applications with C/C++, and work on AI/ML projects with Python, Jupyter,
           PyTorch, and <a href='' className='underline-offset-auto underline hover:text-white'>VectorGrad</a>
         </p>
       </motion.div>
-      <div className = 'mt-20 flex flex-wrap gap-10'>
+      <div className = 'mt-20 flex items-center justify-between flex-wrap gap-10'>
         {services.map((service,index) =>(
           <ServiceCard key = {service.title} index = {index} {...service}/>
         ))}

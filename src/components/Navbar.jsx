@@ -18,7 +18,7 @@ const Navbar = () => {
         <Link to='/' className='flex items-center gap-2 h-full shrink-0' onClick={() =>{
           setActive("");setOpen(false);
           window.scrollTo(0,0);}}>
-          <img src = '/logo.svg' alt = 'logo' className='w-[90px] h-full object-contain'/>
+          <img src = '/SH_logo.jpeg' alt = 'logo' className='w-[90px] h-full object-contain border-2 border-white'/>
           <p className='text-white text-[24px] text-center font-bold cursor-pointer px-2'>Sina's Portfolio</p>
           {/* to='/' means that when we click the link just goes to top of the page. Can set an onClick
           listener as well since this is a react-router-dom element */}
