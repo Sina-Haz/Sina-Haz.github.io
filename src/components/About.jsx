@@ -31,13 +31,8 @@ const About = () => {
       </motion.div>
       <motion.div variants = {fadeIn('','',0.35, 1)} className={`leading-loose mb-4 text-secondary text-[17px]`}>
         <p className="mb-2">
-          I'm a computer science and math major at Rutgers University. I do fullstack development with
-          frameworks such as Android Studio, Reactjs, Threejs, JavaFX, and Vite.
-        </p>
-
-        <p className="mb-2">
-          I also write low-level and systems applications with C/C++, and work on AI/ML projects with Python, Jupyter,
-          PyTorch, and <a href='' className='underline-offset-auto underline hover:text-white'>VectorGrad</a>
+          I'm a Junior majoring in computer science and math at Rutgers University. My main interests are fullstack webapp development,
+          AI and Machine Learning algorithms, and writing low-level performant applications for systems, networking, and hardware acceleration.
         </p>
       </motion.div>
       <div className = 'mt-20 flex items-center justify-between flex-wrap gap-10'>

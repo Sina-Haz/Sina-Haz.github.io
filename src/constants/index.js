@@ -17,7 +17,7 @@ import {
     docker,
     meta,
     starbucks,
-    tesla,
+    Navierre,
     shopify,
     carrent,
     jobit,
@@ -125,7 +125,7 @@ import {
     {
       title: "Data Science Intern",
       company_name: "Navierre",
-      icon: tesla,
+      icon: Navierre,
       iconBg: "#E6DEDD",
       date: "Feb 2023 - Aug 2023",
       points: [
@@ -137,7 +137,6 @@ import {
     {
       title: "Software Engineer Intern",
       company_name: "General Autonomy",
-      icon: shopify,
       iconBg: "#383E56",
       date: "Jul 2023 - Present",
       points: [
