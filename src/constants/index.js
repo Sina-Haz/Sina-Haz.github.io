@@ -35,6 +35,10 @@ import {
       title: "Work",
     },
     {
+      id: "CV",
+      title:"Resume"
+    },
+    {
       id: "contact",
       title: "Contact",
     },
@@ -178,21 +182,17 @@ import {
   
   const projects = [
     {
-      name: "Car Rent",
+      name: "Vectorgrad",
       description:
-        "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+        "Why use PyTorch when I can build it from scratch? Vectorgrad is a small, readable, autograd engine with tensor support and neural network functionality built in. Try it for yourself by running pip install Vectorgrad on the command line",
       tags: [
         {
-          name: "react",
+          name: "Python",
           color: "blue-text-gradient",
         },
         {
-          name: "mongodb",
+          name: "Jupyter",
           color: "green-text-gradient",
-        },
-        {
-          name: "tailwind",
-          color: "pink-text-gradient",
         },
       ],
       image: carrent,
