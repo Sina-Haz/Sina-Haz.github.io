@@ -31,14 +31,8 @@ const Navbar = () => {
           {navLinks.map((link) => (
             <li key={link.id} className = {`${active===link.title ? "text-white" : "text-secondary"} 
             hover:text-white text-[18px] font-medium cursor-pointer`} >
-              {link.id === 'CV' ? (<a href = {`/resume.pdf`} download onClick = {() => {
-                const downloadLink = document.createElement('a');
-                downloadLink.href = '/resume.pdf';
-                downloadLink.download = 'SinaCV.pdf';
-                downloadLink.click();
-              }}>{link.title}</a>) :
-              (<a href = {`#${link.id}`} onClick = {() => setActive(link.title)}>{link.title}</a>) 
-              }
+              <a href = {link.id === 'CV' ? '/resume.pdf' : `#${link.id}`} onClick = {() => 
+              {link.id === 'CV' ? window.open('/resume.pdf', '_blank') : setActive(link.title)}}>{link.title}</a>
               {/* # means that the href is creating internal link to somewhere inside the web page. We 
               use useState to keep track of whether a user is w/in a subpage (one of these hyperlinks in the navbar)
               or the main page (which is why when they click our logo to go back we set active back to empty)
