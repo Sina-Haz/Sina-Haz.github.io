@@ -5,12 +5,12 @@ title: ""
 
 <div class="container--wide">
   <section class="hero">
-    <h1>Hi, I'm <span style="color: var(--accent)">Sina Hazeghi</span></h1>
+    <h1>Hi, I'm <span style="color: var(--accent)">Sina</span></h1>
     <p class="hero-sub">
       I'm interested in how things work — robotics, AI, systems, and everything in between.
       I like building implementations from scratch to understand the internals: motion planners,
-      physics simulators, generative models, and low-level systems. Currently exploring the
-      intersection of learning and robotics.
+      physics simulators, generative models, and low-level systems. Currently, in my free time
+      I'm exploring topics in visual SLAM, cryptocurrency, and generative modelling.
     </p>
 
     <div class="social-links">
