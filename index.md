@@ -13,10 +13,12 @@ title: ""
       <div class="hero-text">
         <h1>Hi, I'm <span style="color: var(--accent)">Sina</span></h1>
         <p class="hero-sub">
-          I'm interested in how things work — robotics, AI, systems, and everything in between.
-          I like building implementations from scratch to understand the internals: motion planners,
-          physics simulators, generative models, and low-level systems. Currently, in my free time
-          I'm exploring topics in visual SLAM, cryptocurrency, and generative modelling.
+          I'm interested in how things work — robotics, AI, stochastic systems, and everything in between.
+          I love to take cool software, dive deep into the internals and build it out from scratch to see how it works.
+        </p>
+        <p class="hero-sub">
+          <a href="https://sententiaeantiquae.com/2019/05/06/how-to-be-from-seneca/" target="_blank" rel="noopener"><em>Homines dum docent discunt</em></a>, this site is an effort to share my excitement and what I learn to the world.
+          A special thanks for the countless other sites/blogs people have made that have taught me.
         </p>
 
         <div class="social-links">
