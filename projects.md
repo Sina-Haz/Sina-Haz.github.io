@@ -15,6 +15,9 @@ permalink: /projects/
     {% assign sorted_projects = site.projects | sort: 'date' | reverse %}
     {% for project in sorted_projects %}
     <div class="project-card">
+      {% if project.in_progress %}
+      <span class="badge-in-progress">In Progress</span>
+      {% endif %}
       {% if project.video %}
       <video class="project-img" src="{{ project.video | relative_url }}" autoplay loop muted playsinline></video>
       {% elsif project.image %}

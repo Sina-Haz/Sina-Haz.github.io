@@ -202,6 +202,30 @@ nav {
   padding: 5rem 0 4rem;
 }
 
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-photo {
+  flex-shrink: 0;
+}
+
+.hero-photo img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
 .hero h1 {
   margin-bottom: 1.25rem;
 }
@@ -350,6 +374,54 @@ nav {
   line-height: 1.6;
 }
 
+.post-item--nb {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.post-thumb {
+  flex-shrink: 0;
+  width: 100px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+}
+
+.post-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* =============================================
+   BLOG SECTIONS
+   ============================================= */
+
+.blog-section {
+  margin-bottom: 3rem;
+}
+
+.blog-section-header {
+  margin-bottom: 1.5rem;
+}
+
+.blog-section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.25rem;
+}
+
+.blog-section-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
 .colab-badge {
   display: inline-flex;
   align-items: center;
@@ -466,6 +538,22 @@ pre code {
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.badge-in-progress {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 1;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: #f59e0b;
+  color: #000;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .project-card:hover {
@@ -667,6 +755,27 @@ footer {
 @media (max-width: 640px) {
   main { padding: 2.5rem 0 4rem; }
   .hero { padding: 3rem 0 2.5rem; }
+
+  .post-item--nb {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .post-thumb {
+    width: 100%;
+    height: 140px;
+  }
+
+  .hero-top {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .hero-photo img {
+    width: 120px;
+    height: 120px;
+  }
 
   .nav-links {
     gap: 1.1rem;
