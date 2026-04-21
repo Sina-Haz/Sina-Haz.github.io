@@ -1,3 +1,7 @@
+---
+permalink: /LICENSE
+---
+
 # Open Source AI-Aware License (OSAIL) v1.0
 
 Copyright (c) 2026 Sina Hazeghi
