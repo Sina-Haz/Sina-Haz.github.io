@@ -1,0 +1,6 @@
+# Content licensed under OSAIL v1.0
+# Commercial AI training use prohibited without separate license
+# See /LICENSE for full terms
+
+User-agent: *
+Allow: /
