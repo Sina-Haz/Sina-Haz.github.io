@@ -44,14 +44,14 @@ Using the context and definitions above we can now come up with a representation
 
 ### Rotation as a "rigid transformation"
 A rotation is a transformation on a coordinate space, it maps from 3D -> 3D so we are looking for a space of matrices in $\mathbb R^{3\times 3}$
-  - Matrix multiplication represents a linear transformation AND it's non-commutative checkmark
+  - Matrix multiplication represents a linear transformation AND it's non-commutative ✅
 Ensuring "rigidity" of the transformation: <show gif of coordinate system pre rotation & post rotation>
 	- In this image we applied rotation R to standard basis I, notice that the new coordinate system RI = R is also an orthonormal basis 
     - Rotations do not scale objects larger or smaller thus the basis vectors must all have magnitude 1 (thus orthonormal and not just orthogonal)
 Thus we can deduce that the columns of R form an orthonormal basis, this means R must be an _orthogonal matrix_ which has the special property:
 $$ R^T R = RR^T = I$$
 (see [here](https://math.stackexchange.com/questions/52717/column-vectors-orthogonal-implies-row-vectors-also-orthogonal) for more)
- - This equation also reinforces the fact that rotations only have 3 Degrees of Freedom, it represents 6 constraints* so the DoF of the rotation matrices is 9 - 6 = 3 checkmark
+ - This equation also reinforces the fact that rotations only have 3 Degrees of Freedom, it represents 6 constraints* so the DoF of the rotation matrices is 9 - 6 = 3 ✅
 
 ### Excluding reflections
 By enforcing just one constraint (namely $R^{-1} = R^T$) we have satisfied all but one requirement for representing rotations. 
@@ -94,5 +94,3 @@ Next time we will discuss the problems of this representation and work our way t
 TODO:
  - fill in asterisks 
  - add a table of contents on the side so users can easily jump to different sections
- - replace checkmark with actual checkmarks
- - Fix double $$ not rendering correctly
