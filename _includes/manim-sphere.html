@@ -1,0 +1,238 @@
+<style>
+  .mfig {
+    margin: 1.5rem 0;
+  }
+  .mfig .mfig-label {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8b93a7;
+    background: #1a1b20;
+    border: 1px solid #2c2e38;
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .mfig .mfig-canvas {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #0e0f13;
+    border: 1px solid #262833;
+  }
+  .mfig .mfig-canvas canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+  .mfig .mfig-hint {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.6rem;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    user-select: none;
+  }
+  .mfig .mfig-err {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #e0655a;
+    padding: 1rem;
+    text-align: center;
+  }
+  .mfig figcaption {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<figure class="mfig">
+  <span class="mfig-label">Manim-style</span>
+  <div class="mfig-canvas" id="manim-sphere-canvas">
+    <span class="mfig-hint">camera is fixed — the sphere is rotating</span>
+  </div>
+  <figcaption>The camera is fixed. The sphere itself spins about its y-axis, and you can see the rotation by watching the red dot on the z-axis together with the markers dotted around the xy-plane circle.</figcaption>
+</figure>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script>
+  (function () {
+    var container = document.getElementById('manim-sphere-canvas');
+    if (!container) return;
+    if (typeof THREE === 'undefined') {
+      container.innerHTML = '<span class="mfig-err">Could not load 3D library.</span>';
+      return;
+    }
+
+    function init() {
+      var R = 1.5;
+
+      var scene = new THREE.Scene();
+
+      var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+      camera.position.set(3.7, 2.4, 4.4);
+      camera.lookAt(0, 0, 0);
+
+      var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x0e0f13, 1);
+      container.insertBefore(renderer.domElement, container.firstChild);
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+      var key = new THREE.DirectionalLight(0xffffff, 1.3);
+      key.position.set(1, 1.4, 1);
+      scene.add(key);
+      var fill = new THREE.DirectionalLight(0xffffff, 0.4);
+      fill.position.set(-1, -0.5, -1);
+      scene.add(fill);
+
+      // ---- Fixed world-space axes (so the rotating markers move relative to these) ----
+      function axisLine(x1, y1, z1, x2, y2, z2, color) {
+        var g = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(x1, y1, z1), new THREE.Vector3(x2, y2, z2)
+        ]);
+        return new THREE.Line(g, new THREE.LineBasicMaterial({ color: color }));
+      }
+      var axes = new THREE.Group();
+      axes.add(axisLine(-1.9, 0, 0, 1.9, 0, 0, 0x6b7288));   // x
+      axes.add(axisLine(0, -1.9, 0, 0, 1.9, 0, 0x6b7288));    // y
+      axes.add(axisLine(0, 0, -1.9, 0, 0, 1.9, 0xe04c3c));    // z (red, to echo the red dot on it)
+      scene.add(axes);
+
+      function makeLabel(text, color) {
+        var c = document.createElement('canvas');
+        c.width = 128; c.height = 64;
+        var ctx = c.getContext('2d');
+        ctx.font = 'Bold 40px Inter, Arial, sans-serif';
+        ctx.fillStyle = color || '#c9cede';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(text, 64, 32);
+        var sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+          map: new THREE.CanvasTexture(c),
+          depthTest: false,
+          transparent: true
+        }));
+        sprite.scale.set(0.5, 0.25, 1);
+        return sprite;
+      }
+      var lx = makeLabel('x'); lx.position.set(2.15, 0, 0); scene.add(lx);
+      var ly = makeLabel('y'); ly.position.set(0, 2.15, 0); scene.add(ly);
+      var lz = makeLabel('z'); lz.position.set(0, 0, 2.25); scene.add(lz);
+
+      // ---- The rotating sphere group ----
+      var ball = new THREE.Group();
+      scene.add(ball);
+
+      var sphere = new THREE.Mesh(
+        new THREE.SphereGeometry(R, 64, 48),
+        new THREE.MeshPhongMaterial({
+          color: 0xa9c0ec,
+          transparent: true,
+          opacity: 0.10,
+          specular: 0x223344,
+          shininess: 60
+        })
+      );
+      ball.add(sphere);
+
+      // latitude / longitude grid lines
+      var gridMat = new THREE.LineBasicMaterial({ color: 0x8fa3c9, transparent: true, opacity: 0.7 });
+      var grid = new THREE.Group();
+      for (var i = 0; i < 12; i++) {
+        var a = (i / 12) * Math.PI;
+        var pts = [];
+        for (var j = 0; j <= 72; j++) {
+          var t = (j / 72) * Math.PI * 2;
+          var x = R * Math.cos(t), y = R * Math.sin(t);
+          pts.push(new THREE.Vector3(x * Math.cos(a), y, x * Math.sin(a)));
+        }
+        grid.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), gridMat));
+      }
+      for (var k = 1; k < 12; k++) {
+        var b = (k / 12) * Math.PI;
+        var rad = R * Math.sin(b), yy = R * Math.cos(b);
+        var pts2 = [];
+        for (var m = 0; m <= 72; m++) {
+          var t2 = (m / 72) * Math.PI * 2;
+          pts2.push(new THREE.Vector3(rad * Math.cos(t2), yy, rad * Math.sin(t2)));
+        }
+        grid.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts2), gridMat));
+      }
+      ball.add(grid);
+
+      // ---- markers on the xy-plane (equator) circle, so the spin is obvious ----
+      var MARKERS = 12;
+      var markerMat = new THREE.MeshPhongMaterial({
+        color: 0x66c7a1, emissive: 0x0a3a2c, specular: 0xffffff, shininess: 60
+      });
+      for (var q = 0; q < MARKERS; q++) {
+        var ang = (q / MARKERS) * Math.PI * 2;
+        var mdot = new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 16), markerMat);
+        mdot.position.set(R * Math.cos(ang), 0, R * Math.sin(ang));
+        ball.add(mdot);
+      }
+
+      // red dot riding the +z-axis of the equator
+      var red = new THREE.Mesh(
+        new THREE.SphereGeometry(0.075, 24, 24),
+        new THREE.MeshPhongMaterial({ color: 0xe04c3c, emissive: 0x661008, specular: 0xffffff, shininess: 90 })
+      );
+      red.position.set(0, 0, R);
+      ball.add(red);
+
+      // highlight the equatorial circle the markers travel along
+      var eqPts = [];
+      for (var e = 0; e <= 90; e++) {
+        var ta = (e / 90) * Math.PI * 2;
+        eqPts.push(new THREE.Vector3(R * Math.cos(ta), 0, R * Math.sin(ta)));
+      }
+      ball.add(new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints(eqPts),
+        new THREE.LineBasicMaterial({ color: 0xe04c3c, transparent: true, opacity: 0.5 })
+      ));
+
+      function resize() {
+        var w = container.clientWidth, h = container.clientHeight;
+        if (w === 0 || h === 0) return;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      }
+      resize();
+      if (window.ResizeObserver) new ResizeObserver(resize).observe(container);
+
+      var last = performance.now();
+      (function animate(now) {
+        requestAnimationFrame(animate);
+        var delta = Math.min((now - last) / 1000, 0.1);
+        last = now;
+        ball.rotation.y += delta * 0.6;   // spin the sphere, keep the camera fixed
+        renderer.render(scene, camera);
+      })(last);
+    }
+
+    if (document.readyState === 'loading') {
+      window.addEventListener('load', function () {
+        try { init(); } catch (e) {
+          container.innerHTML = '<span class="mfig-err">3D error: ' + (e && e.message ? e.message : e) + '</span>';
+        }
+      });
+    } else {
+      try { init(); } catch (e) {
+        container.innerHTML = '<span class="mfig-err">3D error: ' + (e && e.message ? e.message : e) + '</span>';
+      }
+    }
+  })();
+</script>

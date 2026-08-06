@@ -1,0 +1,276 @@
+<style>
+  .dfig {
+    margin: 1.5rem 0;
+  }
+  .dfig .dfig-label {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .dfig .dfig-wrap {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 0.75rem 1rem;
+  }
+  .dfig svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .dfig text {
+    font-family: 'Inter', sans-serif;
+  }
+  .dfig .dcontrols {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem 1.75rem;
+    margin-top: 0.75rem;
+  }
+  .dfig .dctl {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .dfig .dctl label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .dfig .dctl b {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    min-width: 4.2em;
+    color: var(--text);
+  }
+  .dfig input[type="range"] {
+    -webkit-appearance: none;
+    width: 130px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--border);
+    outline: none;
+  }
+  .dfig input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: #d64545;
+    border: 2px solid var(--card-bg);
+    box-shadow: 0 0 0 1px #d64545;
+    cursor: pointer;
+  }
+  .dfig .dbtn {
+    font-family: inherit;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.25rem 0.6rem;
+    cursor: pointer;
+  }
+  .dfig .dbtn:hover {
+    color: var(--text);
+    border-color: var(--text-muted);
+  }
+  .dfig figcaption {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<figure class="dfig">
+  <span class="dfig-label">Distill-style</span>
+  <div class="dfig-wrap">
+    <svg viewBox="0 0 640 460" version="1.1">
+      <defs>
+        <style>
+          .grid-l { stroke: var(--text-muted); stroke-opacity: 0.28; fill: none; stroke-width: 1; }
+          .active { stroke: #d64545; fill: none; stroke-width: 1.6; stroke-dasharray: 5 4; stroke-opacity: 0.6; }
+          .axis { stroke: var(--text-muted); stroke-width: 1.5; stroke-opacity: 0.7; }
+          .lbl { fill: var(--text-muted); font-size: 12px; font-weight: 500; }
+          .glyph { stroke: #d64545; fill: none; stroke-width: 1.4; stroke-dasharray: 3 3; stroke-opacity: 0.65; }
+        </style>
+      </defs>
+
+      <!-- sphere outline -->
+      <circle cx="170" cy="230" r="130" fill="none" class="axis"/>
+
+      <!-- parallels (lines of latitude) -->
+      <line x1="105" y1="117.4" x2="235" y2="117.4" class="grid-l"/>
+      <line x1="57.4" y1="165" x2="282.6" y2="165" class="grid-l"/>
+      <line x1="40" y1="230" x2="300" y2="230" class="grid-l"/>
+      <line x1="57.4" y1="295" x2="282.6" y2="295" class="grid-l"/>
+      <line x1="105" y1="342.6" x2="235" y2="342.6" class="grid-l"/>
+
+      <!-- meridians (lines of longitude) -->
+      <ellipse class="grid-l" cx="170" cy="230" rx="125.6" ry="130"/>
+      <ellipse class="grid-l" cx="170" cy="230" rx="91.9" ry="130"/>
+      <ellipse class="grid-l" cx="170" cy="230" rx="33.7" ry="130"/>
+      <line class="grid-l" x1="170" y1="100" x2="170" y2="360"/>
+      <ellipse class="grid-l" cx="170" cy="230" rx="33.7" ry="130"/>
+      <ellipse class="grid-l" cx="170" cy="230" rx="91.9" ry="130"/>
+      <ellipse class="grid-l" cx="170" cy="230" rx="125.6" ry="130"/>
+
+      <!-- north / south labels -->
+      <text class="lbl" x="170" y="91" text-anchor="middle">N</text>
+      <text class="lbl" x="170" y="371" text-anchor="middle">S</text>
+
+      <!-- trail of the blue landmark -->
+      <polyline id="d-trail" fill="none" stroke="#4a63e8" stroke-opacity="0.35" stroke-width="1.5" stroke-linejoin="round" points=""/>
+
+      <!-- current parallel & meridian through the red dot -->
+      <line id="d-parallel" class="active"/>
+      <ellipse id="d-meridian" class="active" cx="170" cy="230"/>
+
+      <!-- spin axis glyph (dashed ring around the red dot) + label -->
+      <circle id="d-glyph" class="glyph" r="16" cx="170" cy="230"/>
+      <path id="d-glyph-arrow" class="glyph" d=""/>
+      <text id="d-glyph-label" x="0" y="0" fill="#d64545" fill-opacity="0.75" font-size="12" font-weight="600" font-family="Inter, sans-serif">α</text>
+
+      <!-- the red north-pole dot -->
+      <circle id="d-dot" r="7" fill="#d64545" stroke="#ffffff" stroke-width="2" cx="170" cy="230"/>
+
+      <!-- the blue landmark that reveals the spin -->
+      <circle id="d-mark" r="4.5" fill="#4a63e8" stroke="#ffffff" stroke-width="1.5" cx="170" cy="230"/>
+    </svg>
+
+    <div class="dcontrols">
+      <div class="dctl">
+        <label for="d-elev">θ elevation</label>
+        <input type="range" id="d-elev" min="0" max="180" step="0.5" value="45"/>
+        <b id="d-th">45°</b>
+      </div>
+      <div class="dctl">
+        <label for="d-az">φ azimuth</label>
+        <input type="range" id="d-az" min="0" max="360" step="0.5" value="30"/>
+        <b id="d-phi">30°</b>
+      </div>
+      <div class="dctl">
+        <label for="d-spin">α spin about dot</label>
+        <input type="range" id="d-spin" min="0" max="360" step="0.5" value="20"/>
+        <b id="d-alpha">20°</b>
+      </div>
+      <button type="button" id="d-clear" class="dbtn">clear path</button>
+    </div>
+  </div>
+  <figcaption>Pointing the red dot takes only two angles: elevation θ and azimuth φ. But even with the dot fixed you can still <em>spin the whole sphere</em> about the axis through the dot (α) — the dashed ring shows that axis, and the blue landmark orbits the dot while the dot itself never moves. That residual freedom is the 3rd degree of freedom of a 3D rotation.</figcaption>
+</figure>
+
+<script>
+  (function () {
+    var CX = 170, CY = 230, R = 130, BETA = 28 * Math.PI / 180;
+
+    var elev = document.getElementById('d-elev');
+    var az = document.getElementById('d-az');
+    var spin = document.getElementById('d-spin');
+    var th = document.getElementById('d-th');
+    var phi = document.getElementById('d-phi');
+    var alpha = document.getElementById('d-alpha');
+    var dot = document.getElementById('d-dot');
+    var mark = document.getElementById('d-mark');
+    var trail = document.getElementById('d-trail');
+    var parallel = document.getElementById('d-parallel');
+    var meridian = document.getElementById('d-meridian');
+    var glyph = document.getElementById('d-glyph');
+    var glyphArrow = document.getElementById('d-glyph-arrow');
+    var glyphLabel = document.getElementById('d-glyph-label');
+    var clearBtn = document.getElementById('d-clear');
+
+    if (!elev) return;
+
+    var ptsTrail = [];
+
+    function rodrigues(v, k, ang) {
+      var c = Math.cos(ang), s = Math.sin(ang);
+      var kxv = [k[1] * v[2] - k[2] * v[1], k[2] * v[0] - k[0] * v[2], k[0] * v[1] - k[1] * v[0]];
+      var kd = k[0] * v[0] + k[1] * v[1] + k[2] * v[2];
+      return [
+        v[0] * c + kxv[0] * s + k[0] * kd * (1 - c),
+        v[1] * c + kxv[1] * s + k[1] * kd * (1 - c),
+        v[2] * c + kxv[2] * s + k[2] * kd * (1 - c)
+      ];
+    }
+
+    function draw() {
+      var theta = parseFloat(elev.value) * Math.PI / 180;
+      var phiA = parseFloat(az.value) * Math.PI / 180;
+      var alp = parseFloat(spin.value) * Math.PI / 180;
+      var st = Math.sin(theta), ct = Math.cos(theta);
+      var sp = Math.sin(phiA), cp = Math.cos(phiA);
+
+      // north-pole direction (body frame pole is (0,1,0))
+      var n = [st * sp, ct, st * cp];
+      var dx = CX + R * n[0];
+      var dy = CY - R * n[1];
+
+      // blue landmark, fixed 28° from the pole in the body frame
+      var q = [
+        Math.sin(BETA) * cp + Math.cos(BETA) * st * sp,
+        Math.cos(BETA) * ct,
+        Math.cos(BETA) * st * cp - Math.sin(BETA) * sp
+      ];
+      var m = rodrigues(q, n, alp);
+      var mx = CX + R * m[0];
+      var my = CY - R * m[1];
+
+      // red dot
+      dot.setAttribute('cx', dx);
+      dot.setAttribute('cy', dy);
+
+      // blue landmark
+      mark.setAttribute('cx', mx);
+      mark.setAttribute('cy', my);
+
+      // current parallel (latitude chord) through the dot
+      var halfW = R * st;
+      parallel.setAttribute('x1', CX - halfW);
+      parallel.setAttribute('y1', dy);
+      parallel.setAttribute('x2', CX + halfW);
+      parallel.setAttribute('y2', dy);
+
+      // current meridian (longitude ellipse) through the dot
+      meridian.setAttribute('rx', Math.max(R * Math.abs(sp), 0.6));
+      meridian.setAttribute('ry', R);
+
+      // spin-axis glyph: dashed ring + arrowhead + label around the dot
+      glyph.setAttribute('cx', dx);
+      glyph.setAttribute('cy', dy);
+      var a1 = 100 * Math.PI / 180, a2 = 260 * Math.PI / 180;
+      glyphArrow.setAttribute('d',
+        'M ' + (dx + 16 * Math.cos(a1)).toFixed(1) + ' ' + (dy - 16 * Math.sin(a1)).toFixed(1) +
+        ' A 16 16 0 1 1 ' + (dx + 16 * Math.cos(a2)).toFixed(1) + ' ' + (dy - 16 * Math.sin(a2)).toFixed(1));
+      glyphLabel.setAttribute('x', dx + 20);
+      glyphLabel.setAttribute('y', dy - 14);
+
+      th.textContent = Math.round(parseFloat(elev.value)) + '°';
+      phi.textContent = Math.round(parseFloat(az.value)) + '°';
+      alpha.textContent = Math.round(parseFloat(spin.value)) + '°';
+
+      ptsTrail.push({ x: mx, y: my });
+      if (ptsTrail.length > 600) ptsTrail.shift();
+      trail.setAttribute('points', ptsTrail.map(function (p) {
+        return p.x.toFixed(1) + ',' + p.y.toFixed(1);
+      }).join(' '));
+    }
+
+    clearBtn.addEventListener('click', function () { ptsTrail = []; draw(); });
+    elev.addEventListener('input', draw);
+    az.addEventListener('input', draw);
+    spin.addEventListener('input', draw);
+    draw();
+  })();
+</script>

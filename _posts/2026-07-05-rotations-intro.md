@@ -15,16 +15,17 @@ In graphics and physics we represent 3D objects in various different Coordinate 
 
 So to represent any object (in either coordinate system) all we need to know is its _position_ and _orientation_ and a way to map between coordinate systems
 
+{% include global-local-frame.html %}
+
  - position we can easily represent via a vector $x \in \mathbb R^3$ representing objects' Center of Mass (CoM)
  - The _orientation_ is what we want to represent -> some mystery element R in some space ?
     - We want to compose rotations over time -> we are looking for a space + operator (a _Group_*) representative of 3D rotations
 
 For now we will ignore the other physical properties of these objects such as their size, weight, etc
 
-
 ## What is a Rotation
 Next let's think through what a rotation is:
-< interactive graphic of a sphere w/ lines that user can rotate, sphere has red dot on north pole> 
+
 1. After a rotation, the objects' dimensions are exactly the same. It doesn't get twisted, sheared, or scaled (Known as a "rigid" transformation or isometry)
 2. Degrees of Freedom* of a rotation:
 - Can we achieve any orientation of the sphere by pointing the red dot? 
@@ -35,9 +36,13 @@ Next let's think through what a rotation is:
  - this is illustrated via the graphic above
 4. Rotations are NOT reflections
 - reflections change the _handedness_ of a space
-- \<show animation of pen rotation vs. pen reflection and then show another rotation composed with it>
-- We can think of this as a spatial inversion, effectively changing up -> down, left -> right in the POV of the 3D object
+ - We can think of this as a spatial inversion, effectively changing up -> down, left -> right in the POV of the 3D object
   - fun way to think of this is that we don't want our rotation operation to send our object into the mirror dimension as seen in Dr. Strange
+
+To play around with these concepts and build this intuition yourself, try to prove these ideas to yourself either by rotating an object by you or playing with this digital sphere:
+
+{% include axis-angle-sphere.html %}
+
 
 ## Rotation Matrices from Scratch
 Using the context and definitions above we can now come up with a representation
@@ -91,6 +96,3 @@ The set of all matrices in $\mathbb R^{3 \times 3}$ that follow these rules are 
 
 Next time we will discuss the problems of this representation and work our way to the more natural (but less intuitive) representation: quaternions
 
-TODO:
- - fill in asterisks 
- - add a table of contents on the side so users can easily jump to different sections

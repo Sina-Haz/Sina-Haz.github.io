@@ -1,0 +1,99 @@
+<aside id="page-toc" class="toc" aria-label="Table of contents" hidden>
+  <div class="toc__head">
+    <span class="toc__title">On this page</span>
+    <button type="button" class="toc__toggle" aria-expanded="true" aria-controls="page-toc-list" aria-label="Toggle table of contents">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+  </div>
+  <nav class="toc__nav" id="page-toc-list"><ol></ol></nav>
+</aside>
+
+<script>
+  (function () {
+    var root = document.getElementById('page-toc');
+    if (!root) return;
+
+    var headings = Array.prototype.slice.call(
+      document.querySelectorAll('main h2:not(.sr-only), main h3:not(.sr-only)')
+    );
+
+    // Only worth showing if there is more than one section to jump to.
+    if (headings.length < 2) return;
+
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .replace(/--+/g, '-');
+    }
+
+    var used = {};
+    headings.forEach(function (h) {
+      var id = h.id || slugify(h.textContent);
+      if (!id) id = 'section';
+      if (used[id]) id = id + '-' + (++used[id]);
+      else used[id] = 1;
+      h.id = id;
+    });
+
+// Build a nested list: h2 items at top level, h3 items pinned under the
+    // nearest preceding h2.
+    var legList = root.querySelector('ol');
+    var depthStack = [legList];               // stack of open <ol> elements
+    headings.forEach(function (h) {
+      var link = document.createElement('a');
+      link.href = '#' + h.id;
+      link.textContent = h.textContent;
+
+      var level = h.tagName === 'H3' ? 2 : 1;
+      while (depthStack.length > level) {
+        depthStack.pop();
+      }
+      if (depthStack.length < level) {
+        // need a nested list under the previous item (if there is one)
+        var sub = document.createElement('ol');
+        var parentLi = depthStack[depthStack.length - 1].lastChild;
+        if (parentLi) {
+          parentLi.appendChild(sub);
+          depthStack.push(sub);
+        }
+      }
+
+      var item = document.createElement('li');
+      item.appendChild(link);
+      depthStack[depthStack.length - 1].appendChild(item);
+    });
+
+    var listEl = legList;
+
+    // Reveal the ToC.
+    root.hidden = false;
+
+    // Scrollspy: highlight the section currently in view.
+    var links = listEl.querySelectorAll('a');
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          links.forEach(function (l) {
+            l.classList.toggle('is-active', l.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+    headings.forEach(function (h) { observer.observe(h); });
+
+    // Collapse/expand toggle.
+    var toggle = root.querySelector('.toc__toggle');
+    var nav = root.querySelector('.toc__nav');
+    toggle.addEventListener('click', function () {
+      var open = nav.hidden;
+      nav.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      root.classList.toggle('toc--collapsed', !open);
+    });
+  })();
+</script>

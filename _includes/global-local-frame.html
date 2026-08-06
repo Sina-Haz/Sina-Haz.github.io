@@ -1,0 +1,79 @@
+<style>
+  .frame-fig {
+    margin: 1.5rem 0;
+  }
+  .frame-fig svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text);
+  }
+  .frame-fig figcaption {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  .frame-fig .fr-origin { fill: var(--text); }
+  .frame-fig .fr-pos { stroke: var(--text-muted); }
+  .frame-fig .fr-note { fill: var(--text-muted); font-size: 12px; font-weight: 500; }
+</style>
+
+<figure class="frame-fig">
+<svg viewBox="0 0 680 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Global vs local coordinate frame in 3D">
+  <title>Global vs local coordinate frame in 3D</title>
+  <desc>Isometric projection showing a fixed global frame at the origin, a position vector x to the object, and the object's local frame tilted in 3D to represent its orientation R.</desc>
+
+  <defs>
+    <marker id="fr-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <mask id="fr-gaps" maskUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="680" height="480" fill="white"/>
+      <rect x="153.5" y="36" width="373" height="19" fill="black" rx="2"/>
+      <rect x="224" y="385" width="21.6" height="21" fill="black" rx="2"/>
+      <rect x="54" y="385" width="21.3" height="21" fill="black" rx="2"/>
+      <rect x="149.4" y="258" width="21.2" height="21" fill="black" rx="2"/>
+      <rect x="97.8" y="416" width="124.4" height="19" fill="black" rx="2"/>
+      <rect x="272.5" y="247" width="95" height="19" fill="black" rx="2"/>
+      <rect x="399.8" y="276" width="160.3" height="19" fill="black" rx="2"/>
+      <rect x="206" y="446" width="45.7" height="19" fill="black" rx="2"/>
+      <rect x="326" y="446" width="45.4" height="19" fill="black" rx="2"/>
+      <rect x="446" y="446" width="45.5" height="19" fill="black" rx="2"/>
+    </mask>
+  </defs>
+
+  <text x="340" y="50" text-anchor="middle" class="fr-note">Isometric projection — each frame has three axes (X, Y, Z) in 3D</text>
+
+  <!-- global frame -->
+  <line x1="160" y1="360" x2="225" y2="397.5" stroke="#D85A30" stroke-width="1.75" marker-end="url(#fr-arrow)" mask="url(#fr-gaps)"/>
+  <line x1="160" y1="360" x2="95" y2="397.5" stroke="#639922" stroke-width="1.75" marker-end="url(#fr-arrow)"/>
+  <line x1="160" y1="360" x2="160" y2="285" stroke="#378ADD" stroke-width="1.75" marker-end="url(#fr-arrow)"/>
+  <circle cx="160" cy="360" r="3" class="fr-origin"/>
+  <text x="230" y="401" fill="#71331B" font-size="14" font-weight="500">X</text>
+  <text x="60" y="401" fill="#27506E" font-size="14" font-weight="500">Y</text>
+  <text x="160" y="274" text-anchor="middle" fill="#0C4476" font-size="14" font-weight="500">Z</text>
+  <text x="160" y="430" text-anchor="middle" class="fr-note">Global frame (fixed)</text>
+
+  <!-- position vector -->
+  <line x1="160" y1="360" x2="474" y2="196" stroke-width="1" marker-end="url(#fr-arrow)" mask="url(#fr-gaps)" class="fr-pos"/>
+  <text x="320" y="261" text-anchor="middle" class="fr-note">x (position, ℝ³)</text>
+
+  <!-- local frame -->
+  <line x1="480" y1="190" x2="511.6" y2="258" stroke="#D85A30" stroke-width="1.75" marker-end="url(#fr-arrow)"/>
+  <line x1="480" y1="190" x2="405.3" y2="183.5" stroke="#639922" stroke-width="1.75" marker-end="url(#fr-arrow)"/>
+  <line x1="480" y1="190" x2="523" y2="128.6" stroke="#378ADD" stroke-width="1.75" marker-end="url(#fr-arrow)"/>
+  <circle cx="480" cy="190" r="3" class="fr-origin"/>
+  <text x="480" y="290" text-anchor="middle" class="fr-note">Local frame, oriented by R</text>
+
+  <!-- legend -->
+  <g><circle cx="200" cy="456" r="5" fill="#FAECE7" stroke="#993C1D"/><text x="212" y="460" fill="#993C1D" font-size="12">X axis</text></g>
+  <g><circle cx="320" cy="456" r="5" fill="#EAF3DE" stroke="#3B6D11"/><text x="332" y="460" fill="#3B6D11" font-size="12">Y axis</text></g>
+  <g><circle cx="440" cy="456" r="5" fill="#E6F1FB" stroke="#185FE4"/><text x="452" y="460" fill="#185FE4" font-size="12">Z axis</text></g>
+</svg>
+<figcaption>A 3D object's <em>position</em> x and <em>orientation</em> R are expressed in the global (fixed) frame; the object carries its own local frame with it.</figcaption>
+</figure>

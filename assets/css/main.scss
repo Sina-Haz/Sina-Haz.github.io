@@ -799,3 +799,89 @@ footer {
     font-size: 0.8rem;
   }
 }
+
+/* =============================================
+   TABLE OF CONTENTS (sticky corner sidebar)
+   ============================================= */
+
+main h2[id], main h3[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+@media (min-width: 1000px) {
+  .toc {
+    position: fixed;
+    top: 5.25rem;
+    left: 1.25rem;
+    z-index: 50;
+    width: 260px;
+    max-width: min(300px, calc(100vw - 9.5rem));
+    max-height: calc(100vh - 7.5rem);
+    overflow-y: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    font-size: 0.875rem;
+  }
+
+  .toc__head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .toc__title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+
+  .toc__toggle {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .toc__toggle:hover { background: var(--bg-2); color: var(--text); }
+  .toc__toggle svg { transition: transform 0.15s ease; }
+  .toc--collapsed .toc__toggle svg { transform: rotate(180deg); }
+
+  .toc__nav { max-height: calc(100vh - 11.5rem); overflow-y: auto; }
+  .toc__nav ol { list-style: none; margin: 0; padding: 0.4rem 0.9rem 0.6rem; }
+  .toc__nav ol ol { list-style: none; padding-left: 1rem; margin: 0; }
+  .toc__nav li { margin: 0.05rem 0; }
+  .toc__nav a {
+    display: block;
+    padding: 0.25rem 0.4rem;
+    border-left: 2px solid transparent;
+    color: var(--text-muted);
+    line-height: 1.3;
+    border-radius: 4px;
+  }
+  .toc__nav a:hover { background: var(--bg-2); color: var(--text); }
+  .toc__nav a.is-active { color: var(--accent); border-left-color: var(--accent); }
+}
+
+@media (max-width: 999px) {
+  .toc { display: none; }
+}
+
+[hidden] { display: none !important; }
