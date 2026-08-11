@@ -2,6 +2,7 @@
 layout: post
 title: Rotations and the Special Orthogonal Group
 date: 2026-07-05
+image: "/assets/img/rotations.gif"
 excerpt: An intuitive introduction to rotations in 3D
 katex: true        
 ---
@@ -9,7 +10,7 @@ katex: true
 Problem: How can we represent 3D rotations mathematically and how can we compose them?
 
 ## 3D Objects
-In graphics and physics we represent 3D objects in various different Coordinate Systems, namely the global coordinate system and an objects' local coordinate system:
+In graphics & physics we represent 3D objects in various Coordinate Systems, namely the global coordinate system and an objects' local coordinate system:
  - Global: has a fixed origin and is static irregardless of the movement of objects in the space
  - Local: is relative to the position and orientation of the object. An object is always located at the origin of it's own local coordinate system
 
@@ -17,16 +18,18 @@ So to represent any object (in either coordinate system) all we need to know is 
 
 {% include global-local-frame.html %}
 
- - position we can easily represent via a vector $x \in \mathbb R^3$ representing objects' Center of Mass (CoM)
- - The _orientation_ is what we want to represent -> some mystery element R in some space ?
+ - position we can easily represent via a vector $x \in \mathbb R^3$ representing an objects' Center of Mass (CoM)
+ - How to represent _orientation_? -> some mystery element R in some space?
     - We want to compose rotations over time -> we are looking for a space + operator (a _Group_*) representative of 3D rotations
 
 For now we will ignore the other physical properties of these objects such as their size, weight, etc
 
 ## What is a Rotation
-Next let's think through what a rotation is:
+Use this digital model to reason about the concepts below (or a physical object near you)
 
-1. After a rotation, the objects' dimensions are exactly the same. It doesn't get twisted, sheared, or scaled (Known as a "rigid" transformation or isometry)
+{% include axis-angle-sphere.html %}
+
+1. After a rotation, dimensions are exactly the same. There's no twisting, shearing, or scaling (Known as a "rigid" transformation or isometry)
 2. Degrees of Freedom* of a rotation:
 - Can we achieve any orientation of the sphere by pointing the red dot? 
 	- Note: this is a unit vector in $\mathbb R^3$ with 2 DoFs, we have full freedom of x and y but then z is determined s.t. magnitude = 1
@@ -38,10 +41,6 @@ Next let's think through what a rotation is:
 - reflections change the _handedness_ of a space
  - We can think of this as a spatial inversion, effectively changing up -> down, left -> right in the POV of the 3D object
   - fun way to think of this is that we don't want our rotation operation to send our object into the mirror dimension as seen in Dr. Strange
-
-To play around with these concepts and build this intuition yourself, try to prove these ideas to yourself either by rotating an object by you or playing with this digital sphere:
-
-{% include axis-angle-sphere.html %}
 
 
 ## Rotation Matrices from Scratch
