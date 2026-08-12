@@ -489,6 +489,48 @@ nav {
 }
 
 /* =============================================
+   FOOTNOTES
+   ============================================= */
+
+.post-content sup {
+  line-height: 0;
+}
+
+.post-content sup a.footnote,
+.post-content .footnotes a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.post-content sup a.footnote:hover,
+.post-content .footnotes a:hover {
+  text-decoration: underline;
+}
+
+.post-content .footnotes {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+.post-content .footnotes ol {
+  margin: 0;
+}
+
+.post-content .footnotes li {
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.post-content .footnotes .reversefootnote {
+  margin-left: 0.4em;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* =============================================
    CODE
    ============================================= */
 

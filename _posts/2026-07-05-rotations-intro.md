@@ -20,7 +20,7 @@ So to represent any object (in either coordinate system) all we need to know is 
 
  - position we can easily represent via a vector $x \in \mathbb R^3$ representing an objects' Center of Mass (CoM)
  - How to represent _orientation_? -> some mystery element R in some space?
-    - We want to compose rotations over time -> we are looking for a space + operator (a _Group_*) representative of 3D rotations
+    - We want to compose rotations over time -> we are looking for a space + operator (a _Group_[^1]) representative of 3D rotations
 
 For now we will ignore the other physical properties of these objects such as their size, weight, etc
 
@@ -30,7 +30,7 @@ Use this digital model to reason about the concepts below (or a physical object 
 {% include axis-angle-sphere.html %}
 
 1. After a rotation, dimensions are exactly the same. There's no twisting, shearing, or scaling (Known as a "rigid" transformation or isometry)
-2. Degrees of Freedom* of a rotation:
+2. Degrees of Freedom[^2] of a rotation:
 - Can we achieve any orientation of the sphere by pointing the red dot? 
 	- Note: this is a unit vector in $\mathbb R^3$ with 2 DoFs, we have full freedom of x and y but then z is determined s.t. magnitude = 1
 - Notice that even if we fix the direction of this dot, we can still rotate by any angle $\theta$ about this direction 
@@ -49,13 +49,15 @@ Using the context and definitions above we can now come up with a representation
 ### Rotation as a "rigid transformation"
 A rotation is a transformation on a coordinate space, it maps from 3D -> 3D so we are looking for a space of matrices in $\mathbb R^{3\times 3}$
   - Matrix multiplication represents a linear transformation AND it's non-commutative ✅
-Ensuring "rigidity" of the transformation: <show gif of coordinate system pre rotation & post rotation>
-	- In this image we applied rotation R to standard basis I, notice that the new coordinate system RI = R is also an orthonormal basis 
-    - Rotations do not scale objects larger or smaller thus the basis vectors must all have magnitude 1 (thus orthonormal and not just orthogonal)
-Thus we can deduce that the columns of R form an orthonormal basis, this means R must be an _orthogonal matrix_ which has the special property:
+Ensuring "rigidity" of the transformation:
+
+![Applying rotation R to the standard basis I yields an orthonormal basis R](/assets/img/euler_frames.gif)
+
+  - In above animation we are applying rotation R to object starting with standard basis I. Notice that new coordinate system $RI=R$ is also an orthonormal basis
+
+If we know that columns of R form an orthonormal basis set (aka R is an [orthogonal matrix](https://math.stackexchange.com/questions/2250218/does-aat-i-iff-a-is-an-orthogonal-matrix)) it has the special property:
 $$ R^T R = RR^T = I$$
-(see [here](https://math.stackexchange.com/questions/52717/column-vectors-orthogonal-implies-row-vectors-also-orthogonal) for more)
- - This equation also reinforces the fact that rotations only have 3 Degrees of Freedom, it represents 6 constraints* so the DoF of the rotation matrices is 9 - 6 = 3 ✅
+ - This equation also reinforces the fact that rotations only have 3 Degrees of Freedom, it represents 6 constraints[^3] so the DoF of the rotation matrices is 9 - 6 = 3 ✅
 
 ### Excluding reflections
 By enforcing just one constraint (namely $R^{-1} = R^T$) we have satisfied all but one requirement for representing rotations. 
@@ -94,4 +96,8 @@ This representation allows efficient composition via matrix multiplication.
 The set of all matrices in $\mathbb R^{3 \times 3}$ that follow these rules are known as the __Special Orthogonal Group__ or SO(3). This is a _smooth manifold_ embedded in the space of 3 by 3 matrices (we will discuss smooth manifolds and take advantage of this property in a later article)
 
 Next time we will discuss the problems of this representation and work our way to the more natural (but less intuitive) representation: quaternions
+
+[^1]: A **group** $(G, \cdot)$ is a set of elements together with a binary operation $\cdot$ that is closed, associative, has an identity element, and gives every element an inverse. Rotation composition has all of these — which is exactly why 3D rotations form a group.
+[^2]: **Degrees of freedom (DoF)** are the number of independent parameters needed to fully describe a configuration. A unit vector in $\mathbb R^3$ has 2 DoF (position on the sphere), and the freedom to spin about it adds a 3rd.
+[^3]: The six constraints come from $R^T R = I$: the three diagonal entries of $R^T R$ must equal $1$, and the three above-diagonal (equivalently below-diagonal) entries must equal $0$.
 
